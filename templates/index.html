@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %} Boards list {% endblock title %}
+{% block content %}
+<h1>Boards list</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Board</th>
+            <th>Topics</th>
+            <th>Posts</th>
+            <th>Last Post</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for board in boards %}
+            <tr>
+                <td>
+                    <a href="{% url 'board-details' board.pk %}">{{board.name}}</a><br>
+                    <small style="color: #888;">{{ board.description }}</small>
+                </td>
+                <td class="align-middle">{{ board.topics.count }}</td>
+                <td class="align-middle">{{ board.get_posts_count }}</td>
+                <td> 
+                    {% with post=board.get_last_post %}
+                        {% if post %}
+                            <small>
+                                <a href="{% url 'topic_posts' board.pk post.topic_id %}">
+                                    By {{ post.authored_by }} at {{ post.created_at}}
+                                </a>
+                            </small>
+                        {% else %}
+                            Nothing posted    
+                        {% endif %}
+                        
+                    {% endwith %}
+                </td>
+            </tr>
+                
+            {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

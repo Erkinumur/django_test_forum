@@ -1,0 +1,12 @@
+body {
+    background-image: url(../img/circles-blues.png);
+}
+
+.logo a{
+    color: #fff;
+}
+
+.logo a:hover,
+.logo a:active {
+    text-decoration: none;
+}
